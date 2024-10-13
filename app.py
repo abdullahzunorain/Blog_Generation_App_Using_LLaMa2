@@ -13,7 +13,12 @@ client = Groq(api_key = key)
 def getLLamaresponse(input_text,no_words,blog_style):
 
     ### LLama2 model
-    llm=CTransformers(model="llama3-8b-8192",   # model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
+    # llm=CTransformers(model="llama3-8b-8192",   # model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
+    #                   model_type='llama',
+    #                   config={'max_new_tokens':256,
+    #                           'temperature':0.01})
+    
+    llm = client.chat.completions.create(model="llama3-8b-8192",   # model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
                       model_type='llama',
                       config={'max_new_tokens':256,
                               'temperature':0.01})
