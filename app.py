@@ -2,11 +2,11 @@ import streamlit as st
 from langchain.prompts import PromptTemplate
 from langchain.llms import CTransformers
 # import gradio as gr
-from groq import Groq
-import os
+# from groq import Groq
+# import os
 
-key = os.getenv("groq_api")
-client = Groq(api_key = key)
+# key = os.getenv("groq_api")
+# client = Groq(api_key = key)
 
 # Function To get response from LLAma 2 model
 
