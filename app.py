@@ -1,15 +1,19 @@
 import streamlit as st
 from langchain.prompts import PromptTemplate
 from langchain.llms import CTransformers
+# import gradio as gr
+from groq import Groq
+import os
 
-
+key = os.getenv("groq_api")
+client = Groq(api_key = key)
 
 ## Function To get response from LLAma 2 model
 
 def getLLamaresponse(input_text,no_words,blog_style):
 
     ### LLama2 model
-    llm=CTransformers(model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
+    llm=CTransformers(model="llama3-8b-8192",   # model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
                       model_type='llama',
                       config={'max_new_tokens':256,
                               'temperature':0.01})
