@@ -8,65 +8,36 @@ import os
 key = os.getenv("groq_api")
 client = Groq(api_key = key)
 
-## Function To get response from LLAma 2 model
+# Function To get response from LLAma 2 model
 
-# def getLLamaresponse(input_text,no_words,blog_style):
+def getLLamaresponse(input_text,no_words,blog_style):
 
-#     ## LLama2 model
-#     llm=CTransformers(model="llama3-8b-8192",   # model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
-#                       model_type='llama',
-#                       config={'max_new_tokens':256,
-#                               'temperature':0.01})
+    ## LLama2 model
+    llm=CTransformers(model="llama3-8b-8192",   # model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
+                      model_type='llama',
+                      config={'max_new_tokens':256,
+                              'temperature':0.01})
     
-#     # llm = client.chat.completions.create(model="llama3-8b-8192",   # model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
-#     #                   model_type='llama',
-#     #                   config={'max_new_tokens':256,
-#     #                           'temperature':0.01})
+    # llm = client.chat.completions.create(model="llama3-8b-8192",   # model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
+    #                   model_type='llama',
+    #                   config={'max_new_tokens':256,
+    #                           'temperature':0.01})
     
-#     ## Prompt Template
+    ## Prompt Template
 
-#     template="""
-#         Write a blog for {blog_style} job profile for a topic {input_text}
-#         within {no_words} words.
-#             """
-    
-#     prompt=PromptTemplate(input_variables=["blog_style","input_text",'no_words'],
-#                           template=template)
-    
-#     ## Generate the ressponse from the LLama 2 model
-#     response=llm(prompt.format(blog_style=blog_style,input_text=input_text,no_words=no_words))
-#     print(response)
-#     return response
-
-
-
-def getLLamaresponse(input_text, no_words, blog_style):
-    # Define the prompt using the PromptTemplate
-    template = """
+    template="""
         Write a blog for {blog_style} job profile for a topic {input_text}
         within {no_words} words.
-    """
+            """
     
-    prompt = PromptTemplate(input_variables=["blog_style", "input_text", "no_words"], template=template)
-    formatted_prompt = prompt.format(blog_style=blog_style, input_text=input_text, no_words=no_words)
+    prompt=PromptTemplate(input_variables=["blog_style","input_text",'no_words'],
+                          template=template)
     
-    # Call the Groq client to generate a response
-    response = client.chat.completions.create(
-        model="llama3-8b-8192",
-        messages=[{"role": "user", "content": formatted_prompt}],
-        max_tokens=256,
-        temperature=0.01
-    )
+    ## Generate the ressponse from the LLama 2 model
+    response=llm(prompt.format(blog_style=blog_style,input_text=input_text,no_words=no_words))
+    print(response)
+    return response
 
-    # Print the response to inspect its structure
-    print(response)  # Add this line to see the response structure
-
-    # Extract the response content based on its structure
-    # Adjust the access based on what you see in the print statement
-    if response and 'choices' in response and len(response.choices) > 0:
-        return response.choices[0].message['content']
-    else:
-        return "No response generated."
 
 
 
