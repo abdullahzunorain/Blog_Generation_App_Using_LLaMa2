@@ -38,6 +38,8 @@ client = Groq(api_key = key)
 #     print(response)
 #     return response
 
+
+
 def getLLamaresponse(input_text, no_words, blog_style):
     # Define the prompt using the PromptTemplate
     template = """
@@ -50,14 +52,21 @@ def getLLamaresponse(input_text, no_words, blog_style):
     
     # Call the Groq client to generate a response
     response = client.chat.completions.create(
-        model="llama3-8b-8192",  # Ensure the model ID is correct
+        model="llama3-8b-8192",
         messages=[{"role": "user", "content": formatted_prompt}],
         max_tokens=256,
         temperature=0.01
     )
-    
-    # Extract the response text
-    return response.choices[0].message['content']
+
+    # Print the response to inspect its structure
+    print(response)  # Add this line to see the response structure
+
+    # Extract the response content based on its structure
+    # Adjust the access based on what you see in the print statement
+    if response and 'choices' in response and len(response.choices) > 0:
+        return response.choices[0].message['content']
+    else:
+        return "No response generated."
 
 
 
